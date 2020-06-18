@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Reflection;
+using System.Threading;
 
 namespace AirportISSProject.Forms
 {
@@ -15,12 +18,6 @@ namespace AirportISSProject.Forms
         public ProfileForm()
         {
             InitializeComponent();
-            panel2.BringToFront();
-        }
-
-        private void guna2GradientButton1_Click(object sender, EventArgs e)
-        {
-            panel1.BringToFront();
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -36,6 +33,21 @@ namespace AirportISSProject.Forms
         private void guna2Button3_Click(object sender, EventArgs e)
         {
             historyPanel.BringToFront();
+        }
+
+        private void guna2CirclePictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            guna2CirclePictureBox1.Image = Image.FromFile("img/add_photo_nbg_hover.png");
+        }
+
+        private void guna2CirclePictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            guna2CirclePictureBox1.Image = Image.FromFile("img/add_photo_nbg.png");
+        }
+
+        private void guna2GradientButton3_Click(object sender, EventArgs e)
+        {
+            FormsConnection.Value = false;
         }
     }
 }

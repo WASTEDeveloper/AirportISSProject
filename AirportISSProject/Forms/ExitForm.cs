@@ -25,7 +25,7 @@ namespace AirportISSProject.Forms
         public void guna2GradientButton2_Click(object sender, EventArgs e)
         {
             FormsConnection.Value = false;
-            Close();
+            Hide();
         }
     }
 }

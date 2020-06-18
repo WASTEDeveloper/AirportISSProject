@@ -17,6 +17,11 @@ namespace AirportISSProject
     public partial class MainForm : Form
     {
         public Form currentChildForm;
+        ExitForm exitForm = new ExitForm();
+        InfoForm infoForm = new InfoForm();
+        LogInForm logInForm = new LogInForm();
+        SearchForm searchForm = new SearchForm();
+        TicketsForm ticketsForm = new TicketsForm();
 
         public MainForm()
         {
@@ -39,7 +44,7 @@ namespace AirportISSProject
 
         public void exitButton_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ExitForm());
+            OpenChildForm(exitForm);
             timer2.Enabled = true;
         }
 
@@ -47,11 +52,10 @@ namespace AirportISSProject
         {
             if (currentChildForm != null)
             {
-                currentChildForm.Close();
+                currentChildForm.Hide();
             }
             currentChildForm = childForm;
             childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
             mainArea.Controls.Add(childForm);
             childForm.BringToFront();
@@ -62,7 +66,7 @@ namespace AirportISSProject
         {
             if (currentChildForm != null)
             {
-                currentChildForm.Close();
+                currentChildForm.Hide();
                 searchButton.Checked = false;
                 ticketButton.Checked = false;
                 infoButton.Checked = false;
@@ -75,7 +79,7 @@ namespace AirportISSProject
 
         public void searchButton_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SearchForm());
+            OpenChildForm(searchForm);
         }
 
         public void timer1_Tick(object sender, EventArgs e)
@@ -99,12 +103,17 @@ namespace AirportISSProject
 
         private void infoButton_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new InfoForm());
+            OpenChildForm(infoForm);
         }
 
         private void profileButton_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ProfileForm());
+            OpenChildForm(logInForm);
+        }
+
+        private void ticketButton_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(ticketsForm);
         }
     }
 }

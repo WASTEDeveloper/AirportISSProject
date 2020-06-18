@@ -133,9 +133,8 @@
             // exitButton
             // 
             this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.exitButton.AutoRoundedCorners = true;
             this.exitButton.BackColor = System.Drawing.Color.Transparent;
-            this.exitButton.BorderRadius = 21;
+            this.exitButton.BorderRadius = 8;
             this.exitButton.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             this.exitButton.CheckedState.FillColor = System.Drawing.Color.White;
             this.exitButton.CheckedState.ForeColor = System.Drawing.Color.DodgerBlue;
@@ -164,9 +163,8 @@
             // 
             // settingsButton
             // 
-            this.settingsButton.AutoRoundedCorners = true;
             this.settingsButton.BackColor = System.Drawing.Color.Transparent;
-            this.settingsButton.BorderRadius = 21;
+            this.settingsButton.BorderRadius = 8;
             this.settingsButton.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             this.settingsButton.CheckedState.FillColor = System.Drawing.Color.White;
             this.settingsButton.CheckedState.ForeColor = System.Drawing.Color.DodgerBlue;
@@ -194,9 +192,8 @@
             // 
             // profileButton
             // 
-            this.profileButton.AutoRoundedCorners = true;
             this.profileButton.BackColor = System.Drawing.Color.Transparent;
-            this.profileButton.BorderRadius = 21;
+            this.profileButton.BorderRadius = 8;
             this.profileButton.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             this.profileButton.CheckedState.FillColor = System.Drawing.Color.White;
             this.profileButton.CheckedState.ForeColor = System.Drawing.Color.DodgerBlue;
@@ -225,9 +222,8 @@
             // 
             // infoButton
             // 
-            this.infoButton.AutoRoundedCorners = true;
             this.infoButton.BackColor = System.Drawing.Color.Transparent;
-            this.infoButton.BorderRadius = 21;
+            this.infoButton.BorderRadius = 8;
             this.infoButton.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             this.infoButton.CheckedState.FillColor = System.Drawing.Color.White;
             this.infoButton.CheckedState.ForeColor = System.Drawing.Color.DodgerBlue;
@@ -256,9 +252,8 @@
             // 
             // ticketButton
             // 
-            this.ticketButton.AutoRoundedCorners = true;
             this.ticketButton.BackColor = System.Drawing.Color.Transparent;
-            this.ticketButton.BorderRadius = 21;
+            this.ticketButton.BorderRadius = 8;
             this.ticketButton.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             this.ticketButton.CheckedState.FillColor = System.Drawing.Color.White;
             this.ticketButton.CheckedState.ForeColor = System.Drawing.Color.DodgerBlue;
@@ -283,13 +278,13 @@
             this.ticketButton.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.ticketButton.TextOffset = new System.Drawing.Point(7, 0);
             this.ticketButton.CheckedChanged += new System.EventHandler(this.guna2Button1_CheckedChanged);
+            this.ticketButton.Click += new System.EventHandler(this.ticketButton_Click);
             // 
             // searchButton
             // 
-            this.searchButton.AutoRoundedCorners = true;
             this.searchButton.BackColor = System.Drawing.Color.Transparent;
             this.searchButton.BorderColor = System.Drawing.Color.Transparent;
-            this.searchButton.BorderRadius = 21;
+            this.searchButton.BorderRadius = 8;
             this.searchButton.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             this.searchButton.CheckedState.FillColor = System.Drawing.Color.White;
             this.searchButton.CheckedState.ForeColor = System.Drawing.Color.DodgerBlue;
@@ -422,6 +417,7 @@
             this.Font = new System.Drawing.Font("Montserrat", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IsMdiContainer = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
