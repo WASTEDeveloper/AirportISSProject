@@ -49,7 +49,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.guna2MouseStateHandler1 = new Guna.UI2.WinForms.Guna2MouseStateHandler(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.panel1.SuspendLayout();
@@ -455,7 +454,6 @@
         public Guna.UI2.WinForms.Guna2Button ticketButton;
         public Guna.UI2.WinForms.Guna2Button exitButton;
         public Guna.UI2.WinForms.Guna2Button settingsButton;
-        private Guna.UI2.WinForms.Guna2MouseStateHandler guna2MouseStateHandler1;
         private System.Windows.Forms.Timer timer2;
     }
 }

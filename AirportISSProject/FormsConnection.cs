@@ -9,5 +9,7 @@ namespace AirportISSProject
     static class FormsConnection
     {
         public static bool Value = true;
+        public static bool Value2 = true;
+        //public static string login;
     }
 }
