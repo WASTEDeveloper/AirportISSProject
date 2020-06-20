@@ -114,6 +114,9 @@
             this.tickPictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.crossPictureBox = new Guna.UI2.WinForms.Guna2PictureBox();
             this.crossPictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.progressBarTimer50 = new System.Windows.Forms.Timer(this.components);
+            this.progressBarTimer75 = new System.Windows.Forms.Timer(this.components);
+            this.progressBarTimer100 = new System.Windows.Forms.Timer(this.components);
             this.mainAreaPanle.SuspendLayout();
             this.logInPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.backBtnLogInPanel)).BeginInit();
@@ -393,11 +396,11 @@
             this.registrationContinueBtn.HoverState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.registrationContinueBtn.HoverState.Parent = this.registrationContinueBtn;
             this.registrationContinueBtn.ImageAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.registrationContinueBtn.Location = new System.Drawing.Point(498, 662);
+            this.registrationContinueBtn.Location = new System.Drawing.Point(505, 684);
             this.registrationContinueBtn.Name = "registrationContinueBtn";
             this.registrationContinueBtn.PressedColor = System.Drawing.Color.White;
             this.registrationContinueBtn.ShadowDecoration.Parent = this.registrationContinueBtn;
-            this.registrationContinueBtn.Size = new System.Drawing.Size(357, 54);
+            this.registrationContinueBtn.Size = new System.Drawing.Size(343, 54);
             this.registrationContinueBtn.TabIndex = 79;
             this.registrationContinueBtn.Text = "Продолжить";
             this.registrationContinueBtn.Click += new System.EventHandler(this.registrationContinueBtn_Click);
@@ -406,11 +409,11 @@
             // 
             this.label35.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("Montserrat", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label35.Font = new System.Drawing.Font("Montserrat", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label35.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label35.Location = new System.Drawing.Point(493, 69);
+            this.label35.Location = new System.Drawing.Point(433, 9);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(366, 66);
+            this.label35.Size = new System.Drawing.Size(486, 88);
             this.label35.TabIndex = 78;
             this.label35.Text = "Регистрация";
             // 
@@ -438,7 +441,7 @@
             this.guna2TextBox14.IconRight = ((System.Drawing.Image)(resources.GetObject("guna2TextBox14.IconRight")));
             this.guna2TextBox14.IconRightOffset = new System.Drawing.Point(5, 0);
             this.guna2TextBox14.IconRightSize = new System.Drawing.Size(0, 0);
-            this.guna2TextBox14.Location = new System.Drawing.Point(483, 426);
+            this.guna2TextBox14.Location = new System.Drawing.Point(483, 461);
             this.guna2TextBox14.Margin = new System.Windows.Forms.Padding(4);
             this.guna2TextBox14.Name = "guna2TextBox14";
             this.guna2TextBox14.PasswordChar = '\0';
@@ -473,7 +476,7 @@
             this.guna2TextBox16.IconLeftOffset = new System.Drawing.Point(5, 0);
             this.guna2TextBox16.IconRight = ((System.Drawing.Image)(resources.GetObject("guna2TextBox16.IconRight")));
             this.guna2TextBox16.IconRightOffset = new System.Drawing.Point(5, 0);
-            this.guna2TextBox16.Location = new System.Drawing.Point(483, 535);
+            this.guna2TextBox16.Location = new System.Drawing.Point(483, 570);
             this.guna2TextBox16.Margin = new System.Windows.Forms.Padding(4);
             this.guna2TextBox16.Name = "guna2TextBox16";
             this.guna2TextBox16.PasswordChar = '\0';
@@ -519,7 +522,7 @@
             this.guna2TextBox13.HoverState.Parent = this.guna2TextBox13;
             this.guna2TextBox13.IconRight = ((System.Drawing.Image)(resources.GetObject("guna2TextBox13.IconRight")));
             this.guna2TextBox13.IconRightOffset = new System.Drawing.Point(5, 0);
-            this.guna2TextBox13.Location = new System.Drawing.Point(483, 586);
+            this.guna2TextBox13.Location = new System.Drawing.Point(483, 621);
             this.guna2TextBox13.Margin = new System.Windows.Forms.Padding(4);
             this.guna2TextBox13.Name = "guna2TextBox13";
             this.guna2TextBox13.PasswordChar = '\0';
@@ -531,7 +534,7 @@
             this.guna2TextBox13.TextOffset = new System.Drawing.Point(30, -1);
             this.guna2TextBox13.UseSystemPasswordChar = true;
             this.guna2TextBox13.TextChanged += new System.EventHandler(this.guna2TextBox13_TextChanged);
-            this.guna2TextBox13.IconRightClick += new System.EventHandler(this.guna2TextBox16_IconRightClick);
+            this.guna2TextBox13.IconRightClick += new System.EventHandler(this.guna2TextBox13_IconRightClick);
             // 
             // guna2TextBox15
             // 
@@ -557,7 +560,7 @@
             this.guna2TextBox15.IconRight = ((System.Drawing.Image)(resources.GetObject("guna2TextBox15.IconRight")));
             this.guna2TextBox15.IconRightOffset = new System.Drawing.Point(5, 0);
             this.guna2TextBox15.IconRightSize = new System.Drawing.Size(0, 0);
-            this.guna2TextBox15.Location = new System.Drawing.Point(483, 481);
+            this.guna2TextBox15.Location = new System.Drawing.Point(483, 516);
             this.guna2TextBox15.Margin = new System.Windows.Forms.Padding(4);
             this.guna2TextBox15.Name = "guna2TextBox15";
             this.guna2TextBox15.PasswordChar = '\0';
@@ -572,8 +575,9 @@
             // guna2CirclePictureBox1
             // 
             this.guna2CirclePictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.guna2CirclePictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.guna2CirclePictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("guna2CirclePictureBox1.Image")));
-            this.guna2CirclePictureBox1.Location = new System.Drawing.Point(576, 163);
+            this.guna2CirclePictureBox1.Location = new System.Drawing.Point(576, 165);
             this.guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
             this.guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             this.guna2CirclePictureBox1.ShadowDecoration.Parent = this.guna2CirclePictureBox1;
@@ -581,6 +585,9 @@
             this.guna2CirclePictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.guna2CirclePictureBox1.TabIndex = 76;
             this.guna2CirclePictureBox1.TabStop = false;
+            this.guna2CirclePictureBox1.Click += new System.EventHandler(this.guna2CirclePictureBox1_Click);
+            this.guna2CirclePictureBox1.MouseLeave += new System.EventHandler(this.guna2CirclePictureBox1_MouseLeave);
+            this.guna2CirclePictureBox1.MouseHover += new System.EventHandler(this.guna2CirclePictureBox1_MouseHover);
             // 
             // label28
             // 
@@ -588,18 +595,19 @@
             this.label28.AutoSize = true;
             this.label28.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label28.ForeColor = System.Drawing.Color.Gray;
-            this.label28.Location = new System.Drawing.Point(589, 371);
+            this.label28.Location = new System.Drawing.Point(589, 373);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(174, 18);
             this.label28.TabIndex = 75;
             this.label28.Text = "Загрузить фото профиля";
+            this.label28.Click += new System.EventHandler(this.guna2CirclePictureBox1_Click);
             // 
             // guna2ProgressBar1
             // 
             this.guna2ProgressBar1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.guna2ProgressBar1.BorderRadius = 4;
             this.guna2ProgressBar1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.guna2ProgressBar1.Location = new System.Drawing.Point(492, 572);
+            this.guna2ProgressBar1.Location = new System.Drawing.Point(492, 607);
             this.guna2ProgressBar1.Name = "guna2ProgressBar1";
             this.guna2ProgressBar1.ProgressColor = System.Drawing.Color.Maroon;
             this.guna2ProgressBar1.ProgressColor2 = System.Drawing.Color.Red;
@@ -1616,7 +1624,7 @@
             this.tickPictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tickPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.tickPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("tickPictureBox.Image")));
-            this.tickPictureBox.Location = new System.Drawing.Point(808, 544);
+            this.tickPictureBox.Location = new System.Drawing.Point(808, 579);
             this.tickPictureBox.Name = "tickPictureBox";
             this.tickPictureBox.ShadowDecoration.Parent = this.tickPictureBox;
             this.tickPictureBox.Size = new System.Drawing.Size(24, 24);
@@ -1631,7 +1639,7 @@
             this.tickPictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tickPictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.tickPictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("tickPictureBox2.Image")));
-            this.tickPictureBox2.Location = new System.Drawing.Point(808, 595);
+            this.tickPictureBox2.Location = new System.Drawing.Point(808, 630);
             this.tickPictureBox2.Name = "tickPictureBox2";
             this.tickPictureBox2.ShadowDecoration.Parent = this.tickPictureBox2;
             this.tickPictureBox2.Size = new System.Drawing.Size(24, 24);
@@ -1646,7 +1654,7 @@
             this.crossPictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.crossPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.crossPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("crossPictureBox.Image")));
-            this.crossPictureBox.Location = new System.Drawing.Point(808, 544);
+            this.crossPictureBox.Location = new System.Drawing.Point(808, 579);
             this.crossPictureBox.Name = "crossPictureBox";
             this.crossPictureBox.ShadowDecoration.Parent = this.crossPictureBox;
             this.crossPictureBox.Size = new System.Drawing.Size(24, 24);
@@ -1661,7 +1669,7 @@
             this.crossPictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.crossPictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.crossPictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("crossPictureBox1.Image")));
-            this.crossPictureBox1.Location = new System.Drawing.Point(808, 595);
+            this.crossPictureBox1.Location = new System.Drawing.Point(808, 630);
             this.crossPictureBox1.Name = "crossPictureBox1";
             this.crossPictureBox1.ShadowDecoration.Parent = this.crossPictureBox1;
             this.crossPictureBox1.Size = new System.Drawing.Size(24, 24);
@@ -1670,6 +1678,21 @@
             this.crossPictureBox1.TabStop = false;
             this.crossPictureBox1.UseTransparentBackground = true;
             this.crossPictureBox1.Visible = false;
+            // 
+            // progressBarTimer50
+            // 
+            this.progressBarTimer50.Interval = 1;
+            this.progressBarTimer50.Tick += new System.EventHandler(this.progressBarTimer50_Tick);
+            // 
+            // progressBarTimer75
+            // 
+            this.progressBarTimer75.Interval = 1;
+            this.progressBarTimer75.Tick += new System.EventHandler(this.progressBarTimer75_Tick);
+            // 
+            // progressBarTimer100
+            // 
+            this.progressBarTimer100.Interval = 1;
+            this.progressBarTimer100.Tick += new System.EventHandler(this.progressBarTimer100_Tick);
             // 
             // LogInForm
             // 
@@ -1796,5 +1819,8 @@
         private Guna.UI2.WinForms.Guna2PictureBox tickPictureBox;
         private Guna.UI2.WinForms.Guna2PictureBox crossPictureBox1;
         private Guna.UI2.WinForms.Guna2PictureBox crossPictureBox;
+        private System.Windows.Forms.Timer progressBarTimer50;
+        private System.Windows.Forms.Timer progressBarTimer75;
+        private System.Windows.Forms.Timer progressBarTimer100;
     }
 }

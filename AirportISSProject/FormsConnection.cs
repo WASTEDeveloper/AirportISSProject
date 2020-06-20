@@ -10,6 +10,6 @@ namespace AirportISSProject
     {
         public static bool Value = true;
         public static bool Value2 = true;
-        //public static string login;
+        public static string login = "";
     }
 }

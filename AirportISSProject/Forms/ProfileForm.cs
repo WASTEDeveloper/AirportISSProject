@@ -37,12 +37,12 @@ namespace AirportISSProject.Forms
 
         private void guna2CirclePictureBox1_MouseEnter(object sender, EventArgs e)
         {
-            guna2CirclePictureBox1.Image = Image.FromFile("img/add_photo_nbg_hover.png");
+            guna2CirclePictureBox1.Image = Image.FromFile("img/no_photo.png");
         }
 
         private void guna2CirclePictureBox1_MouseLeave(object sender, EventArgs e)
         {
-            guna2CirclePictureBox1.Image = Image.FromFile("img/add_photo_nbg.png");
+            guna2CirclePictureBox1.Image = Image.FromFile("img/add_photo.png");
         }
 
         private void guna2GradientButton3_Click(object sender, EventArgs e)

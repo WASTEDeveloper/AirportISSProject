@@ -13,6 +13,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Drawing.Configuration;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace AirportISSProject.Forms
 {
@@ -49,6 +50,8 @@ namespace AirportISSProject.Forms
         {
             passwordTextBox.Text = "";
             loginTextBox.Text = "";
+            passwordTextBox.PlaceholderText = "Пароль";
+            loginTextBox.PlaceholderText = "Логин";
             logInPanel.Visible = true;
             mainAreaPanle.Visible = false;
             forgotPassPanel.Visible = false;
@@ -146,7 +149,7 @@ namespace AirportISSProject.Forms
                         {
                             Subject = "ИСС \"Аэропорта\" - Восстановление пароля!",
                             IsBodyHtml = true,
-                            Body = "Ваш секретный код: " + secretCode.ToString()
+                            Body = "<h1>Ваш секретный код: " + secretCode.ToString() + "</h1>"
                         };
                         SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
                         {
@@ -218,7 +221,7 @@ namespace AirportISSProject.Forms
                         {
                             Subject = "ИСС \"Аэропорта\" - Восстановление пароля!",
                             IsBodyHtml = true,
-                            Body = "Ваш секретный код: " + secretCode.ToString()
+                            Body = "<h1>Ваш секретный код: " + secretCode.ToString() + "</h1>"
                         };
                         SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
                         {
@@ -250,6 +253,7 @@ namespace AirportISSProject.Forms
                 if (secretCodeTextBox.Text == secretCode.ToString())
                 {
                     string eMailPass = table.Rows[0][3].ToString();
+                    string eMailLogin = table.Rows[0][1].ToString();
                     try
                     {
                         MailAddress from = new MailAddress("wasteclothes.by@gmail.com");
@@ -258,7 +262,7 @@ namespace AirportISSProject.Forms
                         {
                             Subject = "ИСС \"Аэропорта\" - Восстановление пароля!",
                             IsBodyHtml = true,
-                            Body = "Ваш пароль: " + eMailPass.ToString()
+                            Body = "<h1>Ваш логин: " + eMailLogin.ToString() + "</h1>" + "\n" + "<h1>Ваш пароль: " + eMailPass.ToString() + "</h1>"
                         };
                         SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
                         {
@@ -268,6 +272,8 @@ namespace AirportISSProject.Forms
                         smtp.Send(message);
                         logInPanel.Visible = false;
                         mainAreaPanle.Visible = true;
+                        DialogResult accountCReate = MessageBox.Show("Данные вышего аккаунта были отправлены вам на почту!",
+                        "Восстановление пароля", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         forgotPassPanel.Visible = false;
                         registrationPanel.Visible = false;
                         continueRegistrationPanel.Visible = false;
@@ -312,15 +318,49 @@ namespace AirportISSProject.Forms
             }
         }
 
+        bool loginFieldFlag;
+        bool eMailFieldFlag;
+        bool passwordFieldFlag;
+        bool confirmPasswordFieldFlag;
         private void registrationContinueBtn_Click(object sender, EventArgs e)
         {
-            if (guna2TextBox13.Text != "" && guna2TextBox14.Text != "" && guna2TextBox15.Text != "" && guna2TextBox16.Text != "")
+            if ((loginFieldFlag == true && eMailFieldFlag == true && passwordFieldFlag == true && confirmPasswordFieldFlag == true) && 
+                (guna2TextBox13.Text != "" && guna2TextBox14.Text != "" && guna2TextBox15.Text != "" && guna2TextBox16.Text != ""))
             {
+                DataBase DB = new DataBase();
+
+                MySqlCommand sqlCommand = new MySqlCommand("INSERT INTO `users` (`userID`, `login`, `eMail`, `password`, `avatar`, `name`, `surname`, `dadName`, `birthdayDate`, `telephoneNumber`, `telephoneNumber2`, `country`, `city`, `street`, `house`, `part`, `flat`) " +
+                    "VALUES (NULL, @userLogin, @userEMail, @userPassword, @useravatar, '-', '-', '-', '2020-06-01', '-', '-', '-', '-', '-', '-', '0', '0');", DB.getConnection());
+                sqlCommand.Parameters.Add(@"userLogin", MySqlDbType.VarChar).Value = guna2TextBox14.Text;
+                sqlCommand.Parameters.Add(@"userEMail", MySqlDbType.VarChar).Value = guna2TextBox15.Text;
+                sqlCommand.Parameters.Add(@"userPassword", MySqlDbType.VarChar).Value = guna2TextBox16.Text;
+                sqlCommand.Parameters.Add(@"useravatar", MySqlDbType.VarChar).Value = avatar_path;
+
+                DB.openConnection();
+                if (sqlCommand.ExecuteNonQuery() == 1)
+                {
+                    DialogResult accountCReate = MessageBox.Show("Аккаунт был успешно создан!",
+                    "Регистрация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    DialogResult accountCReate = MessageBox.Show("Упс... Что-то пошло не так! \n Аккаунт не был создан",
+                    "Регистрация", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                DB.closeConnection();
+
+                FormsConnection.login = guna2TextBox14.Text;
+
                 logInPanel.Visible = false;
                 mainAreaPanle.Visible = false;
                 forgotPassPanel.Visible = false;
                 registrationPanel.Visible = false;
                 continueRegistrationPanel.Visible = true;
+            }
+            else
+            {
+                DialogResult error = MessageBox.Show("Заполните все поля или проверьте правильность введенных данных",
+                "Ошибка", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             }
         }
 
@@ -335,8 +375,8 @@ namespace AirportISSProject.Forms
 
         private void regPanel_backBtn_Click(object sender, EventArgs e)
         {
-            logInPanel.Visible = true;
-            mainAreaPanle.Visible = false;
+            logInPanel.Visible = false;
+            mainAreaPanle.Visible = true;
             forgotPassPanel.Visible = false;
             registrationPanel.Visible = false;
             continueRegistrationPanel.Visible = false;
@@ -353,7 +393,7 @@ namespace AirportISSProject.Forms
             MySqlDataAdapter dataAdapter = new MySqlDataAdapter();
 
             MySqlCommand sqlCommand = new MySqlCommand("SELECT * FROM `users` WHERE `login` = @userLogin", DB.getConnection());
-            sqlCommand.Parameters.Add("@userLogin", MySqlDbType.VarChar).Value = userLogin;
+            sqlCommand.Parameters.Add(@"userLogin", MySqlDbType.VarChar).Value = userLogin;
 
             dataAdapter.SelectCommand = sqlCommand;
             dataAdapter.Fill(table);
@@ -363,13 +403,14 @@ namespace AirportISSProject.Forms
                 Bitmap MyImage = new Bitmap("C:/Assets/AirportISSProject/img/tick (1).png");
                 guna2TextBox14.IconRight = MyImage;
                 guna2TextBox14.IconRightSize = new Size(20, 20);
+                loginFieldFlag = true;
             }
-
-            if (guna2TextBox14.Text == "")
+            else
             {
                 Bitmap MyImage = new Bitmap("C:/Assets/AirportISSProject/img/close (3).png");
                 guna2TextBox14.IconRight = MyImage;
                 guna2TextBox14.IconRightSize = new Size(20, 20);
+                loginFieldFlag = false;
             }
             if (guna2TextBox14.Text == "")
             {
@@ -388,7 +429,7 @@ namespace AirportISSProject.Forms
             MySqlDataAdapter dataAdapter = new MySqlDataAdapter();
 
             MySqlCommand sqlCommand = new MySqlCommand("SELECT * FROM `users` WHERE `eMail` = @userEMail", DB.getConnection());
-            sqlCommand.Parameters.Add("@userEMail", MySqlDbType.VarChar).Value = userEMail;
+            sqlCommand.Parameters.Add(@"userEMail", MySqlDbType.VarChar).Value = userEMail;
 
             dataAdapter.SelectCommand = sqlCommand;
             dataAdapter.Fill(table);
@@ -401,12 +442,14 @@ namespace AirportISSProject.Forms
                 Bitmap MyImage = new Bitmap("C:/Assets/AirportISSProject/img/tick (1).png");
                 guna2TextBox15.IconRight = MyImage;
                 guna2TextBox15.IconRightSize = new Size(20, 20);
+                eMailFieldFlag = true;
             }
             else
             {
                 Bitmap MyImage = new Bitmap("C:/Assets/AirportISSProject/img/close (3).png");
                 guna2TextBox15.IconRight = MyImage;
                 guna2TextBox15.IconRightSize = new Size(20, 20);
+                eMailFieldFlag = false;
             }
             if (guna2TextBox15.Text == "")
             {
@@ -420,6 +463,7 @@ namespace AirportISSProject.Forms
             {
                 tickPictureBox.Visible = true;
                 crossPictureBox.Visible = false;
+                passwordFieldFlag = true;
             }
             else
             {
@@ -429,6 +473,7 @@ namespace AirportISSProject.Forms
             if (guna2TextBox16.Text.Length == 5)
             {
                 progressBarTimer.Enabled = true;
+                passwordFieldFlag = true;
             }
             if (guna2TextBox16.Text.Length < 5)
             {
@@ -436,31 +481,40 @@ namespace AirportISSProject.Forms
                 guna2ProgressBar1.ProgressColor = Color.Maroon;
                 guna2ProgressBar1.ProgressColor2 = Color.Red;
                 progressBarTimer.Enabled = false;
+                progressBarTimer50.Enabled = false;
+                progressBarTimer75.Enabled = false;
+                progressBarTimer100.Enabled = false;
+                passwordFieldFlag = false;
             }
             if (guna2TextBox16.Text.Length == 7)
             {
-                //guna2ProgressBar1.Value = 50;
                 guna2ProgressBar1.ProgressColor = Color.DarkOrange;
                 guna2ProgressBar1.ProgressColor2 = Color.Gold;
-                progressBarTimer.Enabled = true;
+                progressBarTimer50.Enabled = true;
+                passwordFieldFlag = true;
             }
             if (guna2TextBox16.Text.Length == 9)
             {
-                //guna2ProgressBar1.Value = 75;
                 guna2ProgressBar1.ProgressColor = Color.DarkBlue;
                 guna2ProgressBar1.ProgressColor2 = Color.DeepSkyBlue;
-                progressBarTimer.Enabled = true;
+                progressBarTimer75.Enabled = true;
+                passwordFieldFlag = true;
             }
             if (guna2TextBox16.Text.Length == 12)
             {
-                //guna2ProgressBar1.Value = 100;
                 guna2ProgressBar1.ProgressColor = Color.DarkGreen;
                 guna2ProgressBar1.ProgressColor2 = Color.LimeGreen;
-                progressBarTimer.Enabled = true;
+                progressBarTimer100.Enabled = true;
+                passwordFieldFlag = true;
             }
             if (guna2TextBox16.Text == "")
             {
-                guna2TextBox16.IconRightSize = new Size(0, 0);
+                tickPictureBox.Visible = false;
+                crossPictureBox.Visible = false;
+                progressBarTimer.Enabled = false;
+                progressBarTimer50.Enabled = false;
+                progressBarTimer75.Enabled = false;
+                progressBarTimer100.Enabled = false;
             }
         }
 
@@ -470,20 +524,28 @@ namespace AirportISSProject.Forms
             {
                 tickPictureBox2.Visible = true;
                 crossPictureBox1.Visible = false;
+                confirmPasswordFieldFlag = true;
             }
             else
             {
                 tickPictureBox2.Visible = false;
                 crossPictureBox1.Visible = true;
+                confirmPasswordFieldFlag = false;
             }
             if (guna2TextBox13.Text == "")
             {
-                guna2TextBox13.IconRightSize = new Size(0, 0);
+                tickPictureBox2.Visible = false;
+                crossPictureBox1.Visible = false;
             }
         }
 
         private void progressBarTimer_Tick(object sender, EventArgs e)
         {
+            if (guna2ProgressBar1.Value >= 25)
+            {
+                progressBarTimer.Enabled = false;
+                return;
+            }
             guna2ProgressBar1.Increment(1);
         }
 
@@ -496,6 +558,92 @@ namespace AirportISSProject.Forms
             else
             {
                 guna2TextBox16.UseSystemPasswordChar = false;
+            }
+        }
+
+        private void guna2TextBox13_IconRightClick(object sender, EventArgs e)
+        {
+            if (guna2TextBox13.UseSystemPasswordChar == false)
+            {
+                guna2TextBox13.UseSystemPasswordChar = true;
+            }
+            else
+            {
+                guna2TextBox13.UseSystemPasswordChar = false;
+            }
+        }
+
+        private void progressBarTimer50_Tick(object sender, EventArgs e)
+        {
+            if (guna2ProgressBar1.Value >= 50)
+            {
+                progressBarTimer.Enabled = false;
+                return;
+            }
+            guna2ProgressBar1.Increment(1);
+        }
+
+        private void progressBarTimer75_Tick(object sender, EventArgs e)
+        {
+            if (guna2ProgressBar1.Value >= 75)
+            {
+                progressBarTimer.Enabled = false;
+                return;
+            }
+            guna2ProgressBar1.Increment(1);
+        }
+
+        private void progressBarTimer100_Tick(object sender, EventArgs e)
+        {
+            if (guna2ProgressBar1.Value >= 100)
+            {
+                progressBarTimer.Enabled = false;
+                return;
+            }
+            guna2ProgressBar1.Increment(1);
+        }
+
+        string avatar_path = "img/no_photo.png";
+        private void guna2CirclePictureBox1_Click(object sender, EventArgs e)
+        {
+            Bitmap image;
+
+            OpenFileDialog open_dialog = new OpenFileDialog();
+            open_dialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
+            if (open_dialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    image = new Bitmap(open_dialog.FileName);
+                    guna2CirclePictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                    guna2CirclePictureBox1.Image = image;
+                    guna2CirclePictureBox1.Invalidate();
+                    avatar_path = open_dialog.FileName;
+                }
+                catch
+                {
+                    DialogResult rezult = MessageBox.Show("Невозможно открыть выбранный файл",
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+        }
+
+        private void guna2CirclePictureBox1_MouseHover(object sender, EventArgs e)
+        {
+            if (avatar_path == "img/no_photo.png")
+            {
+                guna2CirclePictureBox1.Image = Image.FromFile("img/add_photo.png");
+                avatar_path = "img/add_photo.png";
+            }
+        }
+
+        private void guna2CirclePictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            if (avatar_path == "img/add_photo.png")
+            {
+                guna2CirclePictureBox1.Image = Image.FromFile("img/no_photo.png");
+                avatar_path = "img/no_photo.png";
             }
         }
     }
